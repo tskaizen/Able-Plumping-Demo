@@ -634,3 +634,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .hero__title .waterline { width: 100%; }
 .brand__sub { white-space: nowrap; }
 .hero__title { max-width: none; }
+
+/* Client logo images */
+.brand img { width: 54px; height: 54px; flex: none; object-fit: contain; }
+.brand img.brand__full { width: 150px; height: auto; }
