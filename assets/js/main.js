@@ -47,7 +47,7 @@ setInterval(updateStatus, 60 * 1000);
 
 /* ---------- Header height var for mobile menu ---------- */
 function setStatusHeight() {
-  const bar = document.querySelector(".status-bar");
+  const bar = document.querySelector(".demo-banner");
   if (bar) document.documentElement.style.setProperty("--status-h", bar.offsetHeight + "px");
 }
 setStatusHeight();
