@@ -368,3 +368,41 @@ document.querySelectorAll("[data-consult]").forEach((form) => {
     form.reset();
   });
 });
+
+/* ---------- Gallery lightbox ---------- */
+(function lightbox() {
+  const links = [...document.querySelectorAll("a[data-lightbox]")];
+  if (!links.length || !window.HTMLDialogElement) return;
+  const dlg = document.createElement("dialog");
+  dlg.className = "lightbox"; dlg.setAttribute("aria-label", "Photo viewer");
+  dlg.innerHTML = '<div class="lightbox__inner"><img alt=""><p class="lightbox__cap"></p><div class="lightbox__bar"><button type="button" data-prev aria-label="Previous photo">&larr;</button><button type="button" data-close>Close</button><button type="button" data-next aria-label="Next photo">&rarr;</button></div></div>';
+  document.body.appendChild(dlg);
+  const img = dlg.querySelector("img"), cap = dlg.querySelector(".lightbox__cap");
+  let cur = 0, shown = [];
+  const visible = () => links.filter((a) => !a.closest("li").hidden);
+  const show = (i) => { cur = (i + shown.length) % shown.length; const a = shown[cur]; img.src = a.href; img.alt = a.querySelector("img").alt; cap.textContent = a.dataset.caption || ""; };
+  links.forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); shown = visible(); show(shown.indexOf(a)); dlg.showModal(); }));
+  dlg.querySelector("[data-prev]").addEventListener("click", () => show(cur - 1));
+  dlg.querySelector("[data-next]").addEventListener("click", () => show(cur + 1));
+  dlg.querySelector("[data-close]").addEventListener("click", () => dlg.close());
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") show(cur - 1); if (e.key === "ArrowRight") show(cur + 1); });
+})();
+
+/* ---------- Glossary search ---------- */
+(function glossary() {
+  const box = document.querySelector("#gl-search");
+  if (!box) return;
+  const terms = [...document.querySelectorAll(".term")], groups = [...document.querySelectorAll("[data-letter]")];
+  const status = document.querySelector("#gl-status"), empty = document.querySelector("#gl-empty");
+  box.addEventListener("input", () => {
+    const q = box.value.trim().toLowerCase(); let n = 0;
+    terms.forEach((t) => { const m = !q || t.textContent.toLowerCase().includes(q); t.hidden = !m; if (m) n++; });
+    groups.forEach((g) => { g.hidden = !g.querySelector(".term:not([hidden])"); });
+    empty.hidden = n > 0;
+    status.textContent = q ? `${n} matching ${n === 1 ? "term" : "terms"}` : "";
+  });
+})();
+
+/* ---------- Print button ---------- */
+document.querySelectorAll("[data-print]").forEach((b) => b.addEventListener("click", () => window.print()));
