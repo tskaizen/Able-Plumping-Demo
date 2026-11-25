@@ -652,3 +652,28 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   background: #0b2238; color: #fff; padding: 2px 10px; border-radius: 4px;
 }
 @media print { .demo-banner { display: none !important; } }
+
+/* Free consultation card (home hero) */
+.consult { margin-top: 40px; background: var(--white); color: var(--navy-900); border-radius: 10px; border-top: 5px solid var(--copper); padding: 28px; box-shadow: 0 18px 40px rgba(0,0,0,.28); max-width: 460px; }
+.consult__eyebrow { font-weight: 700; font-size: .8125rem; letter-spacing: .1em; text-transform: uppercase; color: var(--copper-ink); margin: 0 0 4px; }
+.consult__title { font-family: var(--font-display); font-weight: 800; font-size: 2rem; line-height: 1.05; margin: 0 0 10px; color: var(--navy-900); }
+.consult__lead { margin: 0 0 12px; color: var(--muted); font-size: .9688rem; }
+.consult__list { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 6px; font-weight: 600; font-size: .9375rem; }
+.consult__list li { position: relative; padding-left: 26px; }
+.consult__list li::before { content: ""; position: absolute; left: 2px; top: .35em; width: 12px; height: 7px; border-left: 3px solid var(--copper-ink); border-bottom: 3px solid var(--copper-ink); transform: rotate(-45deg); }
+.consult__form label { display: block; font-weight: 700; font-size: .875rem; margin: 12px 0 4px; }
+.consult__form input { width: 100%; min-height: 46px; padding: 10px 12px; font: inherit; color: var(--navy-900); background: var(--white); border: 1.5px solid var(--navy-300, #8da2b8); border-radius: var(--radius); }
+.consult__form input:focus-visible { outline: 3px solid var(--water, #5ec2ec); outline-offset: 1px; }
+.consult__form input[aria-invalid="true"] { border-color: #b3261e; }
+.consult__form .btn { width: 100%; margin-top: 18px; }
+.consult__msg { margin: 10px 0 0; font-size: .9063rem; font-weight: 600; min-height: 1.2em; color: var(--navy-900); }
+.consult__msg.is-error { color: #b3261e; }
+.consult__alt { margin: 14px 0 0; font-size: .875rem; color: var(--muted); }
+.consult__alt a { color: var(--copper-ink); font-weight: 700; }
+@media (min-width: 1000px) {
+  .consult { position: absolute; right: var(--gutter); top: 235px; margin-top: 0; width: 400px; padding: 24px 28px; }
+}
+@media (min-width: 1000px) {
+  .hero__meta, .hero__lead { max-width: calc(100% - 440px); }
+  .hero .wrap { min-height: 880px; }
+}

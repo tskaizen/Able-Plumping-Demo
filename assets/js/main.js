@@ -353,3 +353,18 @@ document.querySelectorAll("[data-year]").forEach((el) => { el.textContent = new 
   document.activeElement && document.activeElement.blur();
   window.scrollTo(0, 0);
 })();
+
+/* ---------- Free consultation card (demo only, nothing is sent) ---------- */
+document.querySelectorAll("[data-consult]").forEach((form) => {
+  const msg = form.querySelector(".consult__msg");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = form.elements.name, phone = form.elements.phone;
+    const bad = [name, phone].filter((f) => !f.value.trim());
+    [name, phone].forEach((f) => f.setAttribute("aria-invalid", bad.includes(f) ? "true" : "false"));
+    msg.classList.toggle("is-error", bad.length > 0);
+    if (bad.length) { msg.textContent = "Please enter your name and phone number."; bad[0].focus(); return; }
+    msg.textContent = "Thanks, " + name.value.trim().split(" ")[0] + "! This is a demo, so no request was sent. On the live site, a plumber would call you back.";
+    form.reset();
+  });
+});
